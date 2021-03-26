@@ -32,19 +32,6 @@ public class BugController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 
 	/**
-	 * method to check any error in input
-	 * 
-	 * @param bindingResult
-	 * 
-	 */
-
-	private void validateModel(BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			throw new IllegalArgumentException("parameters absent");
-		}
-	}
-
-	/**
 	 * method to create bug with given input
 	 * 
 	 * @param bug
@@ -55,6 +42,19 @@ public class BugController {
 	String createBug(@RequestBody @Valid Bug bug, BindingResult bindingResult) {
 		validateModel(bindingResult);
 		return bugService.createBug(bug);
+	}
+
+	/**
+	 * method to check any error in input
+	 * 
+	 * @param bindingResult
+	 * 
+	 */
+
+	private void validateModel(BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			throw new IllegalArgumentException("parameters absent");
+		}
 	}
 
 	/**

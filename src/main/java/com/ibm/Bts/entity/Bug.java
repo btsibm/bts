@@ -10,9 +10,9 @@ import org.springframework.data.annotation.Id;
 public class Bug {
 	@Id
 	private String id;
-	private String description;
 	@NotNull
 	@NotBlank
+	private String description;
 	private STATUS status;
 	private Date date;
 
