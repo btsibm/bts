@@ -2,9 +2,17 @@ package com.ibm.Bts.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.annotation.Id;
+
 public class Bug {
+	@Id
 	private String id;
 	private String description;
+	@NotNull
+	@NotBlank
 	private STATUS status;
 	private Date date;
 

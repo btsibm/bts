@@ -30,11 +30,13 @@ public class BugController {
 
 	@PostMapping("/bug")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	String createbUG(@RequestBody @Valid Bug bug, BindingResult bindingResult) {
-		validateModel(bindingResult);
-		// System.out.println(bug);
-		return bugService.createBug(bug);
-	}
+
+	/**
+	 * method to check any error in input
+	 * 
+	 * @param bindingResult
+	 * 
+	 */
 
 	private void validateModel(BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -42,17 +44,50 @@ public class BugController {
 		}
 	}
 
+	/**
+	 * method to create bug with given input
+	 * 
+	 * @param bug
+	 * @param bindingResult
+	 * @return bugId when success with 200 code
+	 */
+
+	String createBug(@RequestBody @Valid Bug bug, BindingResult bindingResult) {
+		validateModel(bindingResult);
+		return bugService.createBug(bug);
+	}
+
+	/**
+	 * method to get bug detail as per bug id
+	 * 
+	 * @param bugId
+	 * @return Bug Class
+	 */
+
 	@GetMapping("/bug/{id}")
 	Optional<Bug> getBug(@PathVariable("id") String bugId) {
 		return bugService.getBug(bugId);
 	}
 
+	/**
+	 * method to return all bugs
+	 * 
+	 * @return all Bugs available
+	 */
 	@GetMapping("/bug/")
 	List<Bug> getBugs() {
 		return bugService.getBugs();
 
 	}
 
+	/**
+	 * Method to update bug
+	 * 
+	 * @param bug
+	 * @param bindingResult
+	 * @param bugId
+	 * 
+	 */
 	@PutMapping("/bug/{id}")
 	void updateBug(@RequestBody @Valid Bug bug, BindingResult bindingResult, @PathVariable("id") String bugId) {
 		validateModel(bindingResult);
@@ -60,18 +95,16 @@ public class BugController {
 		bugService.updateBug(bug);
 	}
 
+	/**
+	 * Method to delete bug
+	 * 
+	 * @param bugId
+	 */
 	@DeleteMapping("/bug/{id}")
 
 	void deleteOrder(@PathVariable("id") String bugId) {
 		System.out.println(bugId);
 		bugService.deleteOrder(bugId);
 	}
-
-	/**
-	 * method to search for an order
-	 * 
-	 * @param orderId
-	 * @return zero or matching order
-	 */
 
 }
